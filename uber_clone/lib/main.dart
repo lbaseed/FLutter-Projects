@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      debugShowCheckedModeBanner: false,
       home: MyHomePage(title: 'Uber Clone App'),
     );
   }
@@ -42,6 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
+
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
