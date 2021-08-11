@@ -1,8 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.uber_clone">
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
    <application
         android:label="uber_clone"
         android:icon="@mipmap/ic_launcher">
+        <meta-data 
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDjXL5AGh0NGhD9bgEnO4dvGYFN6wTHRhs" />
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
