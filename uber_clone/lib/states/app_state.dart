@@ -25,18 +25,24 @@ class AppState with ChangeNotifier {
 
   AppState() {
     getUserLocation();
-    print("constructor called--------------");
   }
 
 //get user current location
-  void getUserLocation() async {
+  Future<void> getUserLocation() async {
+    print("location checking");
+
     Position position = await Geolocator.getCurrentPosition(
+        forceAndroidLocationManager: true,
         desiredAccuracy: LocationAccuracy.high);
-    List<Placemark> placemark =
-        await placemarkFromCoordinates(position.latitude, position.longitude);
 
     _initialPosition = LatLng(position.latitude, position.longitude);
-    locationController.text = placemark[0].name.toString();
+
+    // List<Placemark> placemark =
+    //     await placemarkFromCoordinates(position.latitude, position.longitude);
+
+    // locationController.text = placemark[0].name.toString();
+    print(
+        "#####user location Lat ${position.latitude} and long ${position.longitude}");
 
     notifyListeners();
   }
@@ -140,8 +146,9 @@ class AppState with ChangeNotifier {
   }
 
 //camera move
-  void onCameraMove(CameraPosition position) {
+  void onCameraMove(CameraPosition position) async {
     _lastPosition = position.target;
+    // print("last position $_lastPosition");
     notifyListeners();
   }
 

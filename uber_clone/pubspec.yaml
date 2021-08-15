@@ -36,7 +36,7 @@ dependencies:
   geoflutterfire: ^3.0.1
   location: ^4.3.0
   uuid: ^3.0.4
-  geolocator: ^7.4.0
+  geolocator: ^7.3.1
   http: ^0.13.3
   geocoding: ^2.0.0
   google_maps_webservice: ^0.0.20-nullsafety.5
