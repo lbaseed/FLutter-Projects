@@ -53,6 +53,8 @@ class _MapState extends State<Map> {
                 mapType: MapType.normal,
                 compassEnabled: true,
                 markers: appState.markers,
+                buildingsEnabled: true,
+                
                 onCameraMove: appState.onCameraMove,
                 polylines: appState.polyLines,
               ),
