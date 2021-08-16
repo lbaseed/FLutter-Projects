@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "514749769828",
+    "project_id": "ryder-f9651",
+    "storage_bucket": "ryder-f9651.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:514749769828:android:271f2c89df28002aced771",
+        "android_client_info": {
+          "package_name": "com.example.ryder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "514749769828-ai30pamohospclrgnqc7jen3omb860ot.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbGDS_EiQhw1K8QSn4g5kKSCXHZ1-9KBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "514749769828-ai30pamohospclrgnqc7jen3omb860ot.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

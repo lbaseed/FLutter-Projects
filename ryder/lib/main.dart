@@ -1,9 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:ryder/screens/screens.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
+
+DatabaseReference userRef =
+    FirebaseDatabase.instance.reference().child("users");
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -11,10 +18,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Ryder',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: "Brand-Bold",
       ),
-      home: MainScreeen(),
+      initialRoute: MainScreen.idScreen,
+      routes: {
+        RegistrationScreen.idScreen: (context) => RegistrationScreen(),
+        LoginScreen.idScreen: (context) => LoginScreen(),
+        MainScreen.idScreen: (context) => MainScreen(),
+      },
     );
   }
 }
