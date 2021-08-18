@@ -3,7 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:ryder/AllWidgets/all_widgets.dart';
+import 'package:ryder/DataHandler/appData.dart';
+import 'package:ryder/assistance/assistant_methods.dart';
+import 'package:ryder/screens/screens.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -35,6 +39,11 @@ class _MainScreenState extends State<MainScreen> {
         new CameraPosition(target: latlngPosition, zoom: 15);
     newGoogleMapController!
         .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+
+    String address =
+        await AssistantMethods.searchCoordinateAddress(position, context);
+
+    print("this is your address $address");
   }
 
   static final CameraPosition _kGooglePlex = CameraPosition(
@@ -175,6 +184,8 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ),
           ),
+
+          //bottom banner
           Positioned(
             left: 0.0,
             right: 0.0,
@@ -206,35 +217,48 @@ class _MainScreenState extends State<MainScreen> {
                       style: TextStyle(fontSize: 12.0),
                     ),
                     Text(
-                      "Where to?, ",
+                      "Where to? ",
                       style:
                           TextStyle(fontSize: 20.0, fontFamily: "Brand-Bold"),
                     ),
                     SizedBox(height: 20.0),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black54,
-                            blurRadius: 6.0,
-                            spreadRadius: 0.5,
-                            offset: Offset(0.7, 0.7),
-                          )
-                        ],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.search,
-                              color: Colors.yellowAccent,
-                            ),
-                            SizedBox(width: 10.0),
-                            Text("Search Drop Off Location"),
+                    //search drop off button
+                    GestureDetector(
+                      onTap: () async {
+                        var res = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SearchScreen()));
+
+                        if (res == "obtainDirection") {
+                          await getPlaceDirection();
+                        }
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black54,
+                              blurRadius: 6.0,
+                              spreadRadius: 0.5,
+                              offset: Offset(0.7, 0.7),
+                            )
                           ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.search,
+                                color: Colors.yellowAccent,
+                              ),
+                              SizedBox(width: 10.0),
+                              Text("Search Drop Off Location"),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -248,10 +272,15 @@ class _MainScreenState extends State<MainScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Add Home"),
+                            Text(Provider.of<AppData>(context).pickUpLocation !=
+                                    null
+                                ? Provider.of<AppData>(context)
+                                    .pickUpLocation!
+                                    .placeName!
+                                : "Add Home"),
                             SizedBox(height: 4.0),
                             Text(
-                              "Your Residential Home Address",
+                              "Your Current Address",
                               style: TextStyle(
                                   color: Colors.grey[400], fontSize: 12.0),
                             ),
@@ -290,5 +319,31 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> getPlaceDirection() async {
+    var initialPosition =
+        Provider.of<AppData>(context, listen: false).pickUpLocation;
+    var finalPosition =
+        Provider.of<AppData>(context, listen: false).dropOffLocation;
+
+    var pickUpLatLng =
+        LatLng(initialPosition!.latitude!, initialPosition.longitude!);
+
+    var dropOffLatLng =
+        LatLng(finalPosition!.latitude!, finalPosition.longitude!);
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) =>
+            ProgressDialog(message: "Please wait..."));
+
+    var details = await AssistantMethods.obtainPlaceDirectionDetails(
+        pickUpLatLng, dropOffLatLng);
+
+    Navigator.pop(context);
+
+    print("this is encoded points##############");
+    print(details.encodedPoints);
   }
 }
