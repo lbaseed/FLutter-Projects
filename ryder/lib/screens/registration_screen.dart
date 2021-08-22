@@ -11,10 +11,10 @@ class RegistrationScreen extends StatelessWidget {
 
   static const String idScreen = "register";
 
-  TextEditingController nameTextController = TextEditingController();
-  TextEditingController emailTextController = TextEditingController();
-  TextEditingController phoneTextController = TextEditingController();
-  TextEditingController passwordTextController = TextEditingController();
+  final TextEditingController nameTextController = TextEditingController();
+  final TextEditingController emailTextController = TextEditingController();
+  final TextEditingController phoneTextController = TextEditingController();
+  final TextEditingController passwordTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -181,6 +181,7 @@ class RegistrationScreen extends StatelessWidget {
       };
 
       userRef.child(firebaseUser.uid).set(userDataMap);
+
       displayToastMessage(
           "Congratulations! Account Created Successfully", context);
       Navigator.pushNamedAndRemoveUntil(

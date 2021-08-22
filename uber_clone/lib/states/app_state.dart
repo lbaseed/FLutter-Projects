@@ -138,6 +138,7 @@ class AppState with ChangeNotifier {
 
     _createRoute(route);
 
+    // ignore: unnecessary_null_comparison
     destination != null
         ? _mapController?.moveCamera(CameraUpdate.newLatLng(destination))
         : _mapController?.moveCamera(CameraUpdate.newLatLng(_initialPosition));

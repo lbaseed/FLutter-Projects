@@ -11,8 +11,8 @@ class LoginScreen extends StatelessWidget {
 
   static const String idScreen = "Login";
 
-  TextEditingController emailTextController = TextEditingController();
-  TextEditingController passwordTextController = TextEditingController();
+  final TextEditingController emailTextController = TextEditingController();
+  final TextEditingController passwordTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -143,11 +143,11 @@ class LoginScreen extends StatelessWidget {
     if (firebaseUser != null) {
       //user created successfully
 
-      //save user info to database
-      Map userDataMap = {
-        "email": emailTextController.text.trim(),
-        "password": passwordTextController.text.trim(),
-      };
+      // //save user info to database
+      // final Map userDataMap = {
+      //   "email": emailTextController.text.trim(),
+      //   "password": passwordTextController.text.trim(),
+      // };
 
       userRef.child(firebaseUser.uid).once().then((DataSnapshot snap) {
         if (snap.value != null) {

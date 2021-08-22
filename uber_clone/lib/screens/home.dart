@@ -28,14 +28,9 @@ class _MapState extends State<Map> {
   // LatLng(10.27, 11.17);
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
+    // ignore: unnecessary_null_comparison
     return appState.initialPosition == null
         ? Container(
             alignment: Alignment.center,
@@ -54,7 +49,6 @@ class _MapState extends State<Map> {
                 compassEnabled: true,
                 markers: appState.markers,
                 buildingsEnabled: true,
-                
                 onCameraMove: appState.onCameraMove,
                 polylines: appState.polyLines,
               ),

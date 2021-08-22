@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:ryder/DataHandler/appData.dart';
 import 'package:ryder/Models/address.dart';
+import 'package:ryder/Models/all_users.dart';
 import 'package:ryder/Models/models.dart';
 import 'package:ryder/assistance/request_assistant.dart';
 import 'package:ryder/configMaps.dart';
@@ -65,5 +68,30 @@ class AssistantMethods {
         res["routes"][0]["legs"][0]["duration"]["value"];
 
     return directionDetails;
+  }
+
+  static int calculateFares(DirectionDetails directionDetails) {
+    double timeTravelFare = (directionDetails.durationValue! / 60) * 20;
+    double distanceTravelFare = (directionDetails.distanceValue! / 1000) * 65;
+    double totalFareAmount = timeTravelFare + distanceTravelFare;
+
+    //convert to local currency ($ to NGN at 485)
+    // totalFareAmount = totalFareAmount * 485;
+
+    return totalFareAmount.truncate();
+  }
+
+  static void getOnlineUserInfo() async {
+    firebaseUser = await FirebaseAuth.instance.currentUser;
+    String userId = firebaseUser!.uid;
+
+    DatabaseReference reference =
+        FirebaseDatabase.instance.reference().child("users").child(userId);
+
+    reference.once().then((DataSnapshot dataSnapshot) {
+      if (dataSnapshot.value != null) {
+        userCurrentInfo = Users.fromSnapShot(dataSnapshot);
+      }
+    });
   }
 }
