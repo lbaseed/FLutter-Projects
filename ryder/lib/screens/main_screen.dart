@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -230,6 +231,19 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                 leading: Icon(Icons.help),
                 title: Text(
                   "Help",
+                  style: TextStyle(fontSize: 15.0),
+                ),
+              ),
+              DividerWidget(),
+              ListTile(
+                onTap: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, LoginScreen.idScreen, (route) => false);
+                },
+                leading: Icon(Icons.logout),
+                title: Text(
+                  "Sign Out",
                   style: TextStyle(fontSize: 15.0),
                 ),
               )
