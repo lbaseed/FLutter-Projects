@@ -75,9 +75,9 @@ class _LoginPageState extends State<LoginPage> {
                         margin: EdgeInsets.only(top: height),
                         child: Center(
                           child: Text(
-                            "Login",
+                            "User Login",
                             style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.red[800],
                                 fontSize: 60,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -152,7 +152,8 @@ class _LoginPageState extends State<LoginPage> {
                                                 obscureText: obscure,
                                                 decoration: InputDecoration(
                                                   border: InputBorder.none,
-                                                  hintText: "Password",
+                                                  hintText:
+                                                      "Enter your password",
                                                   hintStyle: TextStyle(
                                                       color: Colors.grey[900]),
                                                   suffixIcon: IconButton(

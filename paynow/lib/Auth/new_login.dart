@@ -84,11 +84,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   alignment: Alignment.centerLeft,
                   padding: EdgeInsets.symmetric(horizontal: 40),
                   child: Text(
-                    "Login",
+                    "User Login",
                     style: TextStyle(
                       fontSize: 36,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF2661FA),
+                      color: Colors.red[800],
                     ),
                     textAlign: TextAlign.left,
                   ),
@@ -158,14 +158,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 Container(
                   alignment: Alignment.centerRight,
                   margin: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-                  child: ElevatedButton(
-                      onPressed: () async {
+                  child: InkWell(
+                      onTap: () async {
                         if (_formKey.currentState.validate()) {
                           // Process data.
                           _formKey.currentState.save();
                           FocusScope.of(context).unfocus();
                         }
                         // print("$username, $password");
+
+                        // check if fields are not empty here
+
                         User login =
                             User(username: username, password: password);
 
@@ -184,12 +187,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Container(
                         alignment: Alignment.center,
                         decoration: new BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.red[500],
                         ),
                         height: 55,
                         child: Text(
                           "Login",
-                          style: TextStyle(fontSize: 22),
+                          style: TextStyle(fontSize: 22, color: Colors.white),
                         ),
                       )),
                 ),

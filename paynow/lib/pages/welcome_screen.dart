@@ -133,7 +133,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   Center(
                     child: TextButton(
                       onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/register');
+                        Navigator.pushNamed(context, '/register');
                       },
                       child: Text(
                         "Create an account",
@@ -151,6 +151,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 
   void openHomePage() {
-    Navigator.pushReplacementNamed(context, '/login');
+    Navigator.pushNamed(context, '/login');
   }
 }

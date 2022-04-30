@@ -6,7 +6,7 @@ class User {
   String firstName, lastName, phone, email, username, password;
   String token;
   String url = globals.serverUrl;
-
+ 
   User(
       {this.firstName,
       this.lastName,
