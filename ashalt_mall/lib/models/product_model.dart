@@ -11,10 +11,10 @@ class Product {
     required offset,
     required products,
   }) {
-    this._totalSize = totalSize;
-    this._typeId = typeId;
-    this._offset = offset;
-    this._products = products;
+    _totalSize = totalSize;
+    _typeId = typeId;
+    _offset = offset;
+    _products = products;
   }
 
   Product.fromJson(Map<String, dynamic> json) {
@@ -24,7 +24,7 @@ class Product {
     if (json['products'] != null) {
       _products = <ProductModel>[];
       json['products'].forEach((v) {
-        _products!.add(new ProductModel.fromJson(v));
+        _products.add(new ProductModel.fromJson(v));
       });
     }
   }
